@@ -2,8 +2,8 @@ package com.revisoes.baralho;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.Test;
+import org.junit.Before;
 
 /*
  * Suite de teste para um deck de baralho.
@@ -16,7 +16,7 @@ public class DeckTest2 {
     Card2 card;
     Deck2 deck;
     
-    @BeforeAll
+    @Before
     public void setup() {
         deck = new Deck2();
     }
