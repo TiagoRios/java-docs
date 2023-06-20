@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 /**
  * Demonstra como copiar um arquivos usando fluxo de bytes.
@@ -19,8 +19,8 @@ public class CopyBytes {
 
     private static final String COMPLEMENTO_PATH = "stream/";
     
-    private static final String ORIGEM_ARQUIVO = Path.IO_PATH + Path.XANADU;
-    private static final String DESTINO_ARQUIVO = Path.IO_PATH + COMPLEMENTO_PATH
+    private static final String ORIGEM_ARQUIVO = MyPath.IO_PATH + MyPath.XANADU;
+    private static final String DESTINO_ARQUIVO = MyPath.IO_PATH + COMPLEMENTO_PATH
             + CopyBytes.class.getSimpleName().toLowerCase() + ".txt";
 
     // mais fácil para testar dessa maneira.

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 public class ScanSum {
     public static void main(String[] args) throws IOException {
@@ -15,7 +15,7 @@ public class ScanSum {
         double sum = 0;
 
         try {
-            scanner = new Scanner(new BufferedReader(new FileReader(Path.IO_PATH + "usnumbers.txt")));
+            scanner = new Scanner(new BufferedReader(new FileReader(MyPath.IO_PATH + "usnumbers.txt")));
             scanner.useLocale(Locale.US);
 
             while (scanner.hasNext()) {

@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 /**
  * All character stream classes are descended from {@link java.io.Reader Reader}
@@ -37,8 +37,8 @@ public class CopyCharacters {
         FileReader inputStream = null; // usa FileInputStream
         FileWriter outputStream = null; // usa FileOutputStream
         
-        String uriOrigem = Path.IO_PATH + Path.XANADU;
-        String uriDestino = Path.IO_PATH + "stream/" + CopyCharacters.class.getSimpleName().toLowerCase() + ".txt";
+        String uriOrigem = MyPath.IO_PATH + MyPath.XANADU;
+        String uriDestino = MyPath.IO_PATH + "stream/" + CopyCharacters.class.getSimpleName().toLowerCase() + ".txt";
 
         try {
             inputStream = new FileReader(uriOrigem);

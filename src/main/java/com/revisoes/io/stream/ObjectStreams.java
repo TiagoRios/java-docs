@@ -4,7 +4,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 /**
  * Os fluxos de objetos suportam E/S de objetos ou uma mistrura de tipos
@@ -30,7 +30,7 @@ import com.revisoes.io.Path;
  * @see java.math.BigDecimal
  */
 public class ObjectStreams {
-    static final String dataFile = Path.IO_PATH + "stream/" + "objectstreams";
+    static final String dataFile = MyPath.IO_PATH + "stream/" + "objectstreams";
 
     // Primeira modificação.
     static final BigDecimal[] prices = {

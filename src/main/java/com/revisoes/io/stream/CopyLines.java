@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 /**
  * Classe que demonstra E/S orientada a linha e fluxo E/S com buffer.
@@ -44,8 +44,8 @@ public class CopyLines {
         BufferedReader inputStream = null;
         PrintWriter outputStream = null;
 
-        String uriOrigem = Path.IO_PATH + Path.XANADU;
-        String uriDestino = Path.IO_PATH + "stream/" + CopyLines.class.getSimpleName().toLowerCase() + ".txt";
+        String uriOrigem = MyPath.IO_PATH + MyPath.XANADU;
+        String uriDestino = MyPath.IO_PATH + "stream/" + CopyLines.class.getSimpleName().toLowerCase() + ".txt";
 
         try {
             // Encapsulando fluxo sem buffer em um fluxo com buffer.

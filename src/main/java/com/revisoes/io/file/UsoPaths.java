@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 public class UsoPaths {
     public static void main(String[] args) throws IOException {
-        Path pathIO = Paths.get(com.revisoes.io.Path.IO_PATH);
+        Path pathIO = Paths.get(com.revisoes.io.MyPath.IO_PATH);
         // Paths.get() é um atalho para o código abaixo.
         FileSystems.getDefault().getPath("meu/caminho");
 
@@ -45,7 +45,7 @@ public class UsoPaths {
          * ============================================================
          */
 
-        System.out.format("%s%n%n", pathIO.resolve(com.revisoes.io.Path.XANADU));
+        System.out.format("%s%n%n", pathIO.resolve(com.revisoes.io.MyPath.XANADU));
         // results is src/main/java/com/revisoes/io/xanadu.txt
 
         /*

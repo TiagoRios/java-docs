@@ -8,7 +8,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 import java.io.EOFException;
 
@@ -29,7 +29,7 @@ import java.io.EOFException;
  * @see java.math.BigDecimal
  */
 public class DataStreams {
-    static final String dataFile = Path.IO_PATH + "stream/" + "my_file";
+    static final String dataFile = MyPath.IO_PATH + "stream/" + "my_file";
     // java.Math.BigDecimal é mais adequado para valores monetários.
     // Porém ele é um objeto e não vai funcionar aqui para fluxo de dados.
     static final double[] prices = { 19.99, 9.99, 15.99, 3.99, 4.99 };

@@ -3,7 +3,7 @@ package com.revisoes.io.stream;
 import java.io.*;
 import java.util.Scanner;
 
-import com.revisoes.io.Path;
+import com.revisoes.io.MyPath;
 
 public class ScanXan {
     public static void main(String[] args) throws IOException {
@@ -12,8 +12,8 @@ public class ScanXan {
         Scanner scanner = null;
         PrintWriter printWriter = null;
         
-        String uriOrigem = Path.IO_PATH + Path.XANADU;
-        String uriDestino = Path.IO_PATH + "stream/" + ScanXan.class.getSimpleName().toLowerCase() + ".txt";
+        String uriOrigem = MyPath.IO_PATH + MyPath.XANADU;
+        String uriDestino = MyPath.IO_PATH + "stream/" + ScanXan.class.getSimpleName().toLowerCase() + ".txt";
 
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(uriOrigem)));
