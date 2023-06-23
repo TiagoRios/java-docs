@@ -1,8 +1,11 @@
 package com.revisoes.io.file;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.FileStore;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -163,8 +166,8 @@ public class UsoFiles {
     /**
      * Definir atributos do arquivo.
      * 
-     * @param path Arquivo para ser definido atributos.
-     * @param nomeAtributo chave do atributo.
+     * @param path          Arquivo para ser definido atributos.
+     * @param nomeAtributo  chave do atributo.
      * @param valorAtributo valor do atributo.
      * @throws IOException
      */
@@ -187,12 +190,59 @@ public class UsoFiles {
                 UserDefinedFileAttributeView.class);
 
         ByteBuffer buf = ByteBuffer.allocate(userView.size(nomeAtributo));
-        
+
         userView.read(nomeAtributo, buf);
         buf.flip();
         String value = Charset.defaultCharset().decode(buf).toString();
 
         System.out.format("Valor do atributo definido pelo usuário: %s%n", value);
+    }
+
+    /*
+     * ============================================================
+     * -------------- Listar informações do disco.
+     * ============================================================
+     */
+
+    /**
+     * Lista as unidades do disco rígido.
+     * 
+     * @param sourcePath
+     * @throws IOException
+     */
+    public void listarInformacoesDisco(Path sourcePath) throws IOException {
+        FileStore fileStore = Files.getFileStore(sourcePath); // C:
+        System.out.println("Armazenamento Total: " + fileStore.getTotalSpace() / 1024 / 1024 / 1024 + " GB");
+
+        // Lista todas as unidades do computador. "C:", "D:"
+        FileSystems.getDefault().getFileStores().forEach(System.out::println);
+    }
+
+    /*
+     * ============================================================
+     * ----------------------- Ler arquivo
+     * ============================================================
+     */
+
+    /**
+     * Imprimir conteúdo dentro de um arquivo.
+     * 
+     * @param sourcePath
+     * @throws IOException
+     */
+    public void imprimeConteudoDeDentroArquivo(Path sourcePath) throws IOException {
+        // usado para arquivos de texto.
+        Charset charset = Charset.forName("US-ASCII");
+        try (BufferedReader reader = Files.newBufferedReader(sourcePath, charset)) {
+            String line = null;
+            System.out.println();
+            while ((line = reader.readLine()) != null) {
+                System.out.println("# " + line);
+            }
+            System.out.println();
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -241,9 +291,25 @@ public class UsoFiles {
 
         usoFiles.definirAtribuitosNoArquivo(sourcePath, CHAVE, VALOR);
         usoFiles.definirAtribuitosNoArquivo(sourcePath, OUTRA_CHAVE, OUTRO_VALOR);
-        
+
         usoFiles.lerAtribuitoDefinidoNoArquivo(sourcePath, CHAVE);
         usoFiles.lerAtribuitoDefinidoNoArquivo(sourcePath, OUTRA_CHAVE);
+
+        /*
+         * ============================================================
+         * -------------- Listar informações do disco.
+         * ============================================================
+         */
+
+        usoFiles.listarInformacoesDisco(arquivoMovido);
+
+        /*
+         * ============================================================
+         * ----------------------- Ler arquivo
+         * ============================================================
+         */
+
+        usoFiles.imprimeConteudoDeDentroArquivo(arquivoMovido);
 
     }
 }
