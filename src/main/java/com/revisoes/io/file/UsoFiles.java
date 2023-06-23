@@ -24,6 +24,17 @@ public class UsoFiles {
     static Path pathNovoDiretorio = Paths.get(MyPath.IO_PATH, NOME_NOVO_DIRETORIO);
 
     /**
+     * faz verificações se o caminho é um diretório ou é um arquivo.
+     * @param path caminho que será analisado.
+     */
+    public void imprimeSeEhArquivoOuDiretorio(Path path) {
+        if (Files.isRegularFile(path))
+            System.out.println("Eh um arquivo regular chamado: " + path.getFileName());
+        else
+            System.out.println("Eh um Diretorio!");
+    }
+
+    /**
      * Cria novo diretório caso ele não exista.
      * 
      * @param pathDiretorio
@@ -33,10 +44,6 @@ public class UsoFiles {
         if (Files.notExists(pathDiretorio)) {
             Files.createDirectory(pathDiretorio);
         }
-
-        // Preferir método Files.readAttributes(). Operação em massa.
-        Files.isDirectory(targetPath, LinkOption.NOFOLLOW_LINKS); // false
-        Files.isRegularFile(targetPath, LinkOption.NOFOLLOW_LINKS); // true
     }
 
     /**
@@ -92,10 +99,16 @@ public class UsoFiles {
     public static void main(String[] args) throws IOException {
         UsoFiles usoFiles = new UsoFiles();
 
+        // verificar
+        usoFiles.imprimeSeEhArquivoOuDiretorio(sourcePath);
+
+        // Copiar
         Path arquivoCopiado = usoFiles.copiarDiretorioOuArquivo(UsoFiles.sourcePath, targetPath);
 
+        // Mover
         Path arquivoMovido = usoFiles.moverDiretorioOuArquivo(arquivoCopiado, pathNovoDiretorio);
 
+        // Excluir
         usoFiles.excluirDiretorioOuArquivo(arquivoMovido);
         usoFiles.excluirDiretorioOuArquivo(UsoFiles.pathNovoDiretorio); // arquivos devem ser excluídos antes.
     }
