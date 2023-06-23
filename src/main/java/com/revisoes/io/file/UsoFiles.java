@@ -1,11 +1,16 @@
 package com.revisoes.io.file;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.UserDefinedFileAttributeView;
 
 import com.revisoes.io.MyPath;
 
@@ -23,8 +28,15 @@ public class UsoFiles {
     static Path targetPath = Paths.get(MyPath.IO_PATH, NOME_ARQUIVO_COPIADO);
     static Path pathNovoDiretorio = Paths.get(MyPath.IO_PATH, NOME_NOVO_DIRETORIO);
 
+    /*
+     * ============================================================
+     * ------- Operações Verificar, copiar, mover e excluir
+     * ============================================================
+     */
+
     /**
      * faz verificações se o caminho é um diretório ou é um arquivo.
+     * 
      * @param path caminho que será analisado.
      */
     public void imprimeSeEhArquivoOuDiretorio(Path path) {
@@ -96,8 +108,101 @@ public class UsoFiles {
         return excluido;
     }
 
+    /*
+     * ============================================================
+     * -------- Gerenciando Metadados Files.readAttributes()
+     * ============================================================
+     */
+
+    /**
+     * Imprime algumas informações do arquivos ussando operações em massa.
+     * 
+     * Utiliza BasicFileAttributes.
+     * 
+     * @param sourcePath
+     * @throws IOException
+     * 
+     * @see {@link Files#readAttributes(Path, String, LinkOption...)}
+     */
+    public void imprimeInformacoesArquivo_basicFileAttributes(Path sourcePath) throws IOException {
+        // Files.readAttributes() lê todos os atributos básicos usando operação em
+        // massa.
+        BasicFileAttributes basicFileAttributes = Files.readAttributes(sourcePath, BasicFileAttributes.class);
+
+        System.out.format("%n----- BasicFileAttributes %n");
+        System.out.format("isDirectory: %s%n", basicFileAttributes.isDirectory());
+        System.out.format("creationTime: %s%n", basicFileAttributes.creationTime().toString());
+        System.out.format("isRegularFile: %s%n%n", basicFileAttributes.isRegularFile());
+    }
+
+    /**
+     * Imprime algumas informações do arquivos ussando operações em massa.
+     * 
+     * Utiliza BasicFileAttributes.
+     * 
+     * @param sourcePath
+     * @throws IOException
+     *
+     * @see {@link Files#readAttributes(Path, String, LinkOption...)
+     */
+    public void imprimeInformacoesArquivo_dosFileAttributes(Path sourcePath) throws IOException {
+        DosFileAttributes dosFileAttributes = Files.readAttributes(sourcePath, DosFileAttributes.class);
+
+        System.out.format("%n----- DosFileAttributes %n");
+        System.out.format("isDirectory: %s%n", dosFileAttributes.isDirectory());
+        System.out.format("creationTime: %s%n", dosFileAttributes.creationTime().toString());
+        System.out.format("isRegularFile: %s%n%n", dosFileAttributes.isRegularFile());
+    }
+
+    /*
+     * ============================================================
+     * ---- Gerenciando Metadados UserDefinedFileAttributeView
+     * ============================================================
+     */
+
+    /**
+     * Definir atributos do arquivo.
+     * 
+     * @param path Arquivo para ser definido atributos.
+     * @param nomeAtributo chave do atributo.
+     * @param valorAtributo valor do atributo.
+     * @throws IOException
+     */
+    public void definirAtribuitosNoArquivo(Path path, String nomeAtributo, String valorAtributo) throws IOException {
+        UserDefinedFileAttributeView userView = Files.getFileAttributeView(path,
+                UserDefinedFileAttributeView.class);
+
+        userView.write(nomeAtributo, Charset.defaultCharset().encode(valorAtributo));
+    }
+
+    /**
+     * Ler atributos que foram definidos no arquivo pelo usuário.
+     * 
+     * @param path
+     * @param nomeAtributo
+     * @throws IOException
+     */
+    public void lerAtribuitoDefinidoNoArquivo(Path path, String nomeAtributo) throws IOException {
+        UserDefinedFileAttributeView userView = Files.getFileAttributeView(path,
+                UserDefinedFileAttributeView.class);
+
+        ByteBuffer buf = ByteBuffer.allocate(userView.size(nomeAtributo));
+        
+        userView.read(nomeAtributo, buf);
+        buf.flip();
+        String value = Charset.defaultCharset().decode(buf).toString();
+
+        System.out.format("Valor do atributo definido pelo usuário: %s%n", value);
+    }
+
     public static void main(String[] args) throws IOException {
         UsoFiles usoFiles = new UsoFiles();
+
+        /*
+         * ============================================================
+         * ------- Operações Verificar, copiar, mover e excluir
+         * ============================================================
+         */
 
         // verificar
         usoFiles.imprimeSeEhArquivoOuDiretorio(sourcePath);
@@ -111,5 +216,34 @@ public class UsoFiles {
         // Excluir
         usoFiles.excluirDiretorioOuArquivo(arquivoMovido);
         usoFiles.excluirDiretorioOuArquivo(UsoFiles.pathNovoDiretorio); // arquivos devem ser excluídos antes.
+
+        /*
+         * ============================================================
+         * -------- Gerenciando Metadados Files.readAttributes()
+         * ============================================================
+         */
+
+        // Verificar operações em massa Files.readAttributes()
+        usoFiles.imprimeInformacoesArquivo_basicFileAttributes(sourcePath);
+        usoFiles.imprimeInformacoesArquivo_dosFileAttributes(sourcePath);
+
+        /*
+         * ============================================================
+         * ---- Gerenciando Metadados UserDefinedFileAttributeView
+         * ============================================================
+         */
+
+        final String CHAVE = "user.mimetype";
+        final String VALOR = "text/html";
+
+        final String OUTRA_CHAVE = "outraChave";
+        final String OUTRO_VALOR = "outro/valor";
+
+        usoFiles.definirAtribuitosNoArquivo(sourcePath, CHAVE, VALOR);
+        usoFiles.definirAtribuitosNoArquivo(sourcePath, OUTRA_CHAVE, OUTRO_VALOR);
+        
+        usoFiles.lerAtribuitoDefinidoNoArquivo(sourcePath, CHAVE);
+        usoFiles.lerAtribuitoDefinidoNoArquivo(sourcePath, OUTRA_CHAVE);
+
     }
 }
