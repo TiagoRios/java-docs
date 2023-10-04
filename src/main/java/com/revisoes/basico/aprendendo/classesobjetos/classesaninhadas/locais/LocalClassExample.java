@@ -1,5 +1,8 @@
 package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.locais;
 
+/**
+ * Uma classe local é definada dentro de um método.
+ */
 public class LocalClassExample {
 
     private LocalClassExample() {
@@ -8,19 +11,19 @@ public class LocalClassExample {
 
     // Deve ser estática para poder ser referenciado dentro de um contexto estático.
     // metodo estático validatePhoneNumber() somente referencia variáveis estáticas.
-    static String regularExpression = "[^0-9]";
-    
-     // Não posso declarar interfaces dentro do corpo de um método porque elas são
-     // inerentemente estáticas.
-    public static String validatePhoneNumber(String phoneNumber1, int numberLength) {
-        /*
-        // agora tenho que informar o tamanho ao chamar o método.
-        // final int numberLength = 10;.
+    static String notNumberCharacteres = "[^0-9]";
 
-        // Valid in JDK 8 and later:
-        // int numLenght = 10. Desde que seja "efetivamente final" (valor não mais
-        // alterado depois de inicializado).
-        */
+    // Não posso declarar interfaces dentro do corpo de um método porque elas são
+    // inerentemente estáticas.
+    public static String validatePhoneNumber(String phoneNumber, int numberLength) {
+        /*
+         * // agora tenho que informar o tamanho ao chamar o método.
+         * // final int numberLength = 10;.
+         * 
+         * // Valid in JDK 8 and later:
+         * // int numLenght = 10. Desde que seja "efetivamente final" (valor não mais
+         * // alterado depois de inicializado).
+         */
         /**
          * Classe local são classes que estão dentro de um método.
          * 
@@ -32,40 +35,39 @@ public class LocalClassExample {
          */
         class PhoneNumber {
 
-            String formattedPhoneNumber = null;
+            String validationMessage = null;
 
             PhoneNumber(String phoneNumber) {
                 // Dessa maneira o numberLength deixa de ser efetivamente final.
                 // numberLength = 7.
 
                 // Extrai apenas os numeros da string fornecida
-                String currentNumber = phoneNumber.replaceAll(regularExpression, "");
+                String currentNumber = phoneNumber.replaceAll(notNumberCharacteres, "");
 
                 // isso somente valida a quantidade de digitos.
                 if (currentNumber.length() == numberLength)
-                    formattedPhoneNumber = "número válido";
+                    validationMessage = "número válido";
                 else
-                    formattedPhoneNumber = "número inválido";
+                    validationMessage = "número inválido";
             }
 
             public String getMensagemNumeroValidoOuInvalido() {
-                return formattedPhoneNumber;
+                return validationMessage;
             }
 
             // Valid in JDK 8 and later:
             // Utilizar os paramentros do método diretamente.
 
-            // public void printOriginalNumbers() {.
-            // System.out.println("Original numbers are " + phoneNumber1 +
-            // " and " + phoneNumber2);.
-            // }.
+            public void printOriginalNumber() {
+                System.out.println("Original numbers is: " + phoneNumber + " and it's " + validationMessage);
+            }
         }
 
-        PhoneNumber myNumber1 = new PhoneNumber(phoneNumber1);
+        PhoneNumber myNumber1 = new PhoneNumber(phoneNumber);
 
         // Valid in JDK 8 and later: método que utiliza os paramentros da função que
         // o envolve.
-        // myNumber1.printOriginalNumbers();.
+        myNumber1.printOriginalNumber();
 
         return myNumber1.getMensagemNumeroValidoOuInvalido();
 
