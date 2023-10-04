@@ -1,9 +1,11 @@
 package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 import java.time.chrono.IsoChronology;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +22,8 @@ public class Person {
 	LocalDate birthday;
 	String emailAddress;
 
-	public Person(){}
+	public Person() {
+	}
 
 	public Person(String nameArg, LocalDate birthdayArg, Sex genderArg, String emailArg) {
 		name = nameArg;
