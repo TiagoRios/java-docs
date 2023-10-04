@@ -9,38 +9,47 @@ import org.junit.Test;
 
 public class HelloWorldAnonymousClassesTest {
 
+    String[] resultado = null;
     HelloWorldAnonymousClasses classesAnonimas;
 
     @Before
-    public void setup(){
+    public void setup() {
         classesAnonimas = new HelloWorldAnonymousClasses();
     }
 
     @Test
-    public void deveCumprimentarEmInglesClasseNormal(){
-        String[] resultado = classesAnonimas.sayHelloEnglishComClasseNormal();
+    public void deveCumprimentarEmInglesClasseNormal() {
+
+        resultado = classesAnonimas.sayHelloEnglishComClasseNormal();
+
         assertEquals("Hello world", resultado[0]);
         assertEquals("Hello ENGLISH", resultado[1]);
     }
-    
+
     @Test
-    public void deveCumprimentarEmFrancesComInterface(){
-        String[] resultado = classesAnonimas.sayHelloFrenchComInterface();
+    public void deveCumprimentarEmFrancesComInterface() {
+
+        resultado = classesAnonimas.sayHelloFrenchComInterface();
+
         assertEquals("Salut tout le monde", resultado[0]);
         assertEquals("Salut FRENCH", resultado[1]);
     }
-    
+
     @Test
-    public void deveCumprimentarComClasseAbstrata(){
-        String[] resultado = classesAnonimas.sayHelloClasseAbstrata();
+    public void deveCumprimentarComClasseAbstrata() {
+
+        resultado = classesAnonimas.sayHelloClasseAbstrata();
+
         assertEquals("Ola mundo", resultado[0]);
         assertEquals("Ola ABSTRATA", resultado[1]);
     }
-    
+
     @Test
-    public void deveCumprimentarClasseNormalSintaxeAnonima(){
-        String[] resultado = classesAnonimas.sayHelloClasseNormalSintaxeAnonima();
-        assertEquals("world world algumAdjetivo", resultado[0]);
-        assertEquals("world NORMAL_ANONIMA algumAdjetivo", resultado[1]);
+    public void deveCumprimentarClasseNormalSintaxeAnonima() {
+
+        resultado = classesAnonimas.sayHelloClasseNormalSintaxeAnonima();
+
+        assertEquals("Hello world algumAdjetivo", resultado[0]);
+        assertEquals("Hello NORMAL_ANONIMA algumAdjetivo", resultado[1]);
     }
 }
