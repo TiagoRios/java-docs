@@ -1,13 +1,23 @@
 package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.internas;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
+
 import java.util.NoSuchElementException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Esta classe utiliza uma classe interna chamanda EvenIterator.class 
+ * Este exemplo demonstra a utilização de classe interna.
+ * 
+ * Uma classe interna é definida dentro de outra classe, diferente
+ * de classes locais. que são definidas dentro de um método
+ * 
+ * A classe interna EvenIterator implementa a interface Iterator<T>
+ * 
+ * @see java.util.Iterator<T>
  */
 public class DataStructure {
 
@@ -16,32 +26,35 @@ public class DataStructure {
     Logger logger = Logger.getLogger(DataStructure.class.getName());
 
     public DataStructure(int size) {
+
         this.size = size;
+
         arrayOfInts = new int[size];
+
         for (int i = 0; i < size; i++) {
             arrayOfInts[i] = i;
         }
     }
 
     public List<Integer> printEven() {
-
+ 
         List<Integer> lista = new ArrayList<>();
-    
-        java.util.Iterator<Integer> evenIterator = this.new EvenIterator();
-
+        Iterator<Integer> evenIterator = this.new EvenIterator();
+        
         while (evenIterator.hasNext()) {
+ 
             int numeroInteiro = evenIterator.next();
+ 
             logger.log(Level.INFO, "{0}", numeroInteiro);
+ 
             lista.add(numeroInteiro);
         }
-
+        
         return lista;
     }
 
-    /**
-     * Classe interna que implementa classe iterator<Integer>
-     */
-    private class EvenIterator implements java.util.Iterator<Integer> {
+    private class EvenIterator implements Iterator<Integer> {
+
         private int nextIndex = 0;
 
         public boolean hasNext() {
@@ -50,13 +63,16 @@ public class DataStructure {
 
         @Override
         public Integer next() {
+
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Integer retValue = Integer.valueOf(arrayOfInts[nextIndex]);
+
+            Integer intValue = Integer.valueOf(arrayOfInts[nextIndex]);
 
             nextIndex += 2;
-            return retValue;
+
+            return intValue;
         }
     }
 
