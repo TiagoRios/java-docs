@@ -2,18 +2,11 @@ package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.chrono.IsoChronology;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.Before;
 import org.junit.Test;
-
-// import com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas.CheckPerson;
-// import com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas.Person;
-// import com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas.Roster;
-
+import org.junit.Before;
 
 public class RosterTest {
 
@@ -22,6 +15,7 @@ public class RosterTest {
     private final int TRINTA_ANOS = 30;
     private final int QUANTIDADE_MAIORES_DEZOITO_ANOS = 3;
 
+    private final String BOB_AGE = "20";
     private final String BOB_NOME = "Bob";
     private final String BOB_EMAIL = "bob@example.com";
 
@@ -32,23 +26,18 @@ public class RosterTest {
 
     Stream<Person> personStream;
 
+    boolean emIdadeMilitar(Person p) {
+        return p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25;
+    }
+
     @Before
     public void setup() {
-        roster = new ArrayList<>();
-        roster.add(new Person("Bob", IsoChronology.INSTANCE.dateNow().minusYears(20), Person.Sex.MALE,
-                "bob@example.com"));
-        roster.add(new Person("Fred", IsoChronology.INSTANCE.dateNow().minusYears(40), Person.Sex.MALE,
-                "fred@example.com"));
-        roster.add(new Person("Jane", IsoChronology.INSTANCE.dateNow().minusYears(31), Person.Sex.FEMALE,
-                "jane@example.com"));
-        roster.add(new Person("George", IsoChronology.INSTANCE.dateNow().minusYears(15), Person.Sex.MALE,
-                "george@example.com"));
-
+        roster = Person.createRoster();
+        
         personsMaioresQue = Roster.printPersonsOlderThan(roster, DEZOITO_ANOS);
         personsFaixaEtaria = Roster.printPersonsWithinAgeRange(roster, CATORZE_ANOS, TRINTA_ANOS);
 
-        personStream = roster.stream()
-                .filter(p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25);
+        personStream = roster.stream().filter(p -> emIdadeMilitar(p));
     }
 
     // Approach 1: Create Methods that Search for Persons that Match One
@@ -86,7 +75,7 @@ public class RosterTest {
 
         class CheckPersonEligibleForSelectiveService implements CheckPerson {
             public boolean test(Person p) {
-                return p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25;
+                return emIdadeMilitar(p);
             }
         }
 
@@ -102,7 +91,7 @@ public class RosterTest {
 
         elegiveisServicoMilitar = Roster.printPersons(roster, new CheckPerson() {
             public boolean test(Person p) {
-                return p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25;
+                return emIdadeMilitar(p);
             }
         });
 
@@ -115,9 +104,7 @@ public class RosterTest {
     public void deveRetornaNomePrimeiroElegivelServicoMilitar_ExpressaoLambda() {
 
         elegiveisServicoMilitar = Roster
-                .printPersons(roster,
-                        p -> p.getGender() == Person.Sex.MALE &&
-                                p.getAge() >= 18 && p.getAge() <= 25);
+                .printPersons(roster, p -> emIdadeMilitar(p));
 
         assertEquals(BOB_NOME, elegiveisServicoMilitar.get(0).getName());
     }
@@ -129,9 +116,7 @@ public class RosterTest {
     public void deveRetornaPrimeiroElegivelServicoMilitar_ParametroPredicate() {
 
         elegiveisServicoMilitar = Roster
-                .printPersonsWithPredicate(roster,
-                        p -> p.getGender() == Person.Sex.MALE &&
-                                p.getAge() >= 18 && p.getAge() <= 25);
+                .printPersonsWithPredicate(roster, p -> emIdadeMilitar(p));
 
         assertEquals(BOB_NOME, elegiveisServicoMilitar.get(0).getName());
     }
@@ -144,7 +129,7 @@ public class RosterTest {
         elegiveisServicoMilitar = Roster
                 .processPersons(
                         roster,
-                        p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
+                        p -> emIdadeMilitar(p),
                         p -> System.out.println(p.getName()));
 
         assertEquals(BOB_NOME, elegiveisServicoMilitar.get(0).getName());
@@ -158,7 +143,7 @@ public class RosterTest {
         elegiveisServicoMilitar = Roster
                 .processPersonsWithFunction(
                         roster,
-                        p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
+                        p -> emIdadeMilitar(p),
                         p -> p.getName(),
                         email -> System.out.println(email + " (essa parte na lambda)"));
 
@@ -173,8 +158,9 @@ public class RosterTest {
         elegiveisServicoMilitar = Roster
                 .processElements(
                         roster,
-                        p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
-                        p -> p.getEmailAddress(), email -> System.out.println(email));
+                        p -> emIdadeMilitar(p),
+                        p -> p.getEmailAddress(),
+                        email -> System.out.println(email));
 
         assertEquals(BOB_NOME, elegiveisServicoMilitar.get(0).getName());
     }
@@ -185,23 +171,26 @@ public class RosterTest {
     @Test
     public void deveRetornaPrimeiroElegiveLServicoMilitar_OperacoesDadosEmMassa() {
         // não há mapeamento, então retorna objeto completo.
-        assertEquals(BOB_NOME,
-                personStream.findFirst().get().getName());
+        assertEquals(BOB_NOME, personStream.findFirst().get().getName());
     }
 
     @Test
     public void deveRetornaPrimeiroElegiveLServicoMilitar_OperacoesDadosEmMassa_Email() {
         // .map() retorna apenas o email de todos em formato de texto.
-        assertEquals(BOB_EMAIL,
-                personStream.map(p -> p.getEmailAddress())
-                        .findFirst().get());
+        String emailFirstPerson = personStream.map(p -> p.getEmailAddress()).findFirst().get();
+
+        assertEquals(BOB_EMAIL, emailFirstPerson);
     }
 
     @Test
     public void deveRetornaPrimeiroElegiveLServicoMilitar_OperacoesDadosEmMassa_Idade() {
         // .map() retorna apenas a idade de todos em formato de texto.
-        assertEquals("20",
-                personStream.map(p -> p.getAge())
-                        .findFirst().get().toString());
+        // String ageFirstPerson = personStream.map(p ->
+        // p.getAge()).findFirst().get().toString();
+
+        // Posso utilizar referência de método no lugar de lambdas.
+        String ageFirstPerson = personStream.map(Person::getAge).findFirst().get().toString();
+
+        assertEquals(BOB_AGE, ageFirstPerson);
     }
 }
