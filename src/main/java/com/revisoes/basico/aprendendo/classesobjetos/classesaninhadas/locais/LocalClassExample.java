@@ -1,6 +1,8 @@
 package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.locais;
 
 /**
+ * Esta classe demonstra a utilização de classe local.
+ * 
  * Uma classe local é definada dentro de um método.
  */
 public class LocalClassExample {
