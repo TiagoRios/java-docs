@@ -28,10 +28,10 @@ public class HelloWorldAnonymousClasses {
     /* ================= Classe Normal ================== */
 
     class EnglishGreeting implements HelloWorld {
-        String name = "world ";
+        String name = "world";
 
         public String greet() {
-            return greetSomeone("world");
+            return greetSomeone(name);
         }
 
         public String greetSomeone(String someone) {
@@ -45,12 +45,12 @@ public class HelloWorldAnonymousClasses {
     abstract class SaudacaoClasseAbstrata {
 
         String name = "mundo"; // Sem propriedade, Lint pede para transformar em uma interface.
-
-        public abstract String greetSomeone(String someone);
-
+        
         String greet() {
             return greetSomeone(name);
         }
+        
+        public abstract String greetSomeone(String someone);
     }
 
     /*
@@ -58,8 +58,6 @@ public class HelloWorldAnonymousClasses {
      *         Métodos com responsabilidades únicas  
      * ==================================================
      */
-
-    /* === Não utiliza classe anônima - Classe normal === */
 
     /**
      * Método que cumprimenta com "Hello word" ou "Hello someone".  
@@ -115,14 +113,14 @@ public class HelloWorldAnonymousClasses {
         SaudacaoClasseAbstrata saudacaoClasseAbstrata = new SaudacaoClasseAbstrata() {
 
             @Override
-            public String greetSomeone(String alguem) {
-                name = alguem;
-                return "Ola " + name;
+            public String greet() {
+                return greetSomeone("mundo");
             }
 
             @Override
-            public String greet() {
-                return greetSomeone("mundo");
+            public String greetSomeone(String alguem) {
+                name = alguem;
+                return "Ola " + name;
             }
         };
 
@@ -150,7 +148,7 @@ public class HelloWorldAnonymousClasses {
 
             @Override
             public String greetSomeone(String someone) {
-                return (name + someone + adjetivo());
+                return ("Hello " + someone + adjetivo());
             }
 
         };
