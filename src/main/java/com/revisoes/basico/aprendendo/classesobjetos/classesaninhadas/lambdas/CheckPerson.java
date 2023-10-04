@@ -6,6 +6,7 @@ package com.revisoes.basico.aprendendo.classesobjetos.classesaninhadas.lambdas;
  * Esta é uma Interface funcional. Tais interfaces possuem apenas um método
  * abstrato.
  */
+@FunctionalInterface
 public interface CheckPerson {
     /**
      * Método utilizado para fazer verificações no objeto.
