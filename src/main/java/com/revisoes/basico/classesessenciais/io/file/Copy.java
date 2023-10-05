@@ -1,11 +1,13 @@
 package com.revisoes.basico.classesessenciais.io.file;
 
-import java.nio.file.*;
-import static java.nio.file.StandardCopyOption.*;
-import java.nio.file.attribute.*;
-import static java.nio.file.FileVisitResult.*;
-import java.io.IOException;
 import java.util.*;
+
+import java.nio.file.*;
+import java.io.IOException;
+import java.nio.file.attribute.*;
+
+import static java.nio.file.FileVisitResult.*;
+import static java.nio.file.StandardCopyOption.*;
 
 /**
  * Sample code that copies files in a similar manner to the cp(1) program.
@@ -17,6 +19,7 @@ public class Copy {
      */
     static boolean okayToOverwrite(Path file) {
         String answer = System.console().readLine("overwrite %s (yes/no)? ", file);
+
         return (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"));
     }
 
@@ -26,11 +29,14 @@ public class Copy {
      * parameter determines if file attributes should be copied/preserved.
      */
     static void copyFile(Path source, Path target, boolean prompt, boolean preserve) {
+
         CopyOption[] options = (preserve) ? new CopyOption[] { COPY_ATTRIBUTES, REPLACE_EXISTING }
                 : new CopyOption[] { REPLACE_EXISTING };
+
         if (!prompt || Files.notExists(target) || okayToOverwrite(target)) {
             try {
                 Files.copy(source, target, options);
+
             } catch (IOException x) {
                 System.err.format("Unable to copy: %s: %s%n", source, x);
             }
@@ -55,41 +61,52 @@ public class Copy {
 
         @Override
         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+
             // before visiting entries in a directory we copy the directory
             // (okay if directory already exists).
             CopyOption[] options = (preserve) ? new CopyOption[] { COPY_ATTRIBUTES } : new CopyOption[0];
 
             Path newdir = target.resolve(source.relativize(dir));
+
             try {
                 Files.copy(dir, newdir, options);
+
             } catch (FileAlreadyExistsException x) {
                 // ignore
             } catch (IOException x) {
                 System.err.format("Unable to create: %s: %s%n", newdir, x);
+
                 return SKIP_SUBTREE;
             }
+
             return CONTINUE;
         }
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+
             copyFile(file, target.resolve(source.relativize(file)),
                     prompt, preserve);
+
             return CONTINUE;
         }
 
         @Override
         public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+
             // fix up modification time of directory when done
             if (exc == null && preserve) {
                 Path newdir = target.resolve(source.relativize(dir));
+
                 try {
                     FileTime time = Files.getLastModifiedTime(dir);
                     Files.setLastModifiedTime(newdir, time);
+
                 } catch (IOException x) {
                     System.err.format("Unable to copy all attributes to: %s: %s%n", newdir, x);
                 }
             }
+
             return CONTINUE;
         }
 
@@ -97,9 +114,11 @@ public class Copy {
         public FileVisitResult visitFileFailed(Path file, IOException exc) {
             if (exc instanceof FileSystemLoopException) {
                 System.err.println("cycle detected: " + file);
+
             } else {
                 System.err.format("Unable to copy: %s: %s%n", file, exc);
             }
+
             return CONTINUE;
         }
     }
@@ -117,14 +136,19 @@ public class Copy {
 
         // process options
         int argi = 0;
+
         while (argi < args.length) {
             String arg = args[argi];
+
             if (!arg.startsWith("-"))
                 break;
+
             if (arg.length() < 2)
                 usage();
+
             for (int i = 1; i < arg.length(); i++) {
                 char c = arg.charAt(i);
+
                 switch (c) {
                     case 'r':
                         recursive = true;
@@ -139,19 +163,26 @@ public class Copy {
                         usage();
                 }
             }
+
             argi++;
         }
 
         // remaining arguments are the source files(s) and the target location
         int remaining = args.length - argi;
-        if (remaining < 2)
+
+        if (remaining < 2) {
             usage();
+        }
+
         Path[] source = new Path[remaining - 1];
+
         int i = 0;
+
         while (remaining > 1) {
             source[i++] = Paths.get(args[argi++]);
             remaining--;
         }
+
         Path target = Paths.get(args[argi]);
 
         // check if target is a directory
@@ -165,13 +196,18 @@ public class Copy {
                 // follow links when copying files
                 EnumSet<FileVisitOption> opts = EnumSet.of(FileVisitOption.FOLLOW_LINKS);
                 TreeCopier tc = new TreeCopier(source[i], dest, prompt, preserve);
+ 
                 Files.walkFileTree(source[i], opts, Integer.MAX_VALUE, tc);
+
             } else {
+
                 // not recursive so source must not be a directory
                 if (Files.isDirectory(source[i])) {
                     System.err.format("%s: is a directory%n", source[i]);
+
                     continue;
                 }
+
                 copyFile(source[i], dest, prompt, preserve);
             }
         }

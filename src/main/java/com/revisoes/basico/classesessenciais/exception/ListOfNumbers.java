@@ -13,8 +13,10 @@ public class ListOfNumbers {
 
     public ListOfNumbers() {
         victor = new Vector<Integer>(SIZE);
-        for (int i = 0; i < SIZE; i++)
+
+        for (int i = 0; i < SIZE; i++) {
             victor.addElement(Integer.valueOf(i));
+        }
 
         this.readList("infile.txt"); // Crie com numeros. 1 por linha.
         this.writeList();
@@ -22,12 +24,15 @@ public class ListOfNumbers {
 
     public void readList(String fileName) {
         String line = null;
-        try (RandomAccessFile raf = new RandomAccessFile(fileName, "r")){
+
+        try (RandomAccessFile raf = new RandomAccessFile(fileName, "r")) {
+
             while ((line = raf.readLine()) != null) {
                 Integer i = Integer.valueOf(Integer.parseInt(line));
                 System.out.println(i);
                 victor.addElement(i);
             }
+
         } catch (FileNotFoundException fnf) {
             System.err.println("File: " + fileName + " not found.");
         } catch (IOException io) {
@@ -41,13 +46,16 @@ public class ListOfNumbers {
         try {
             out = new PrintWriter(new FileWriter("outfile.txt"));
 
-            for (int i = 0; i < victor.size(); i++)
+            for (int i = 0; i < victor.size(); i++) {
                 out.println("Value at dddd: " + i + " = " + victor.elementAt(i));
+            }
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Caught ArrayIndexOutOfBoundsException: " +
                     e.getMessage());
         } catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
+
         } finally {
             if (out != null) {
                 System.out.println("Closing PrintWriter");

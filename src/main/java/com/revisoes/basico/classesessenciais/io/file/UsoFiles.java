@@ -1,19 +1,21 @@
 package com.revisoes.basico.classesessenciais.io.file;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
+import java.io.BufferedReader;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.FileStore;
+import java.nio.file.LinkOption;
+import java.nio.file.FileSystems;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.DosFileAttributes;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
+
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
@@ -43,10 +45,12 @@ public class UsoFiles {
      * @param path caminho que será analisado.
      */
     public void imprimeSeEhArquivoOuDiretorio(Path path) {
-        if (Files.isRegularFile(path))
+        if (Files.isRegularFile(path)) {
             System.out.println("Eh um arquivo regular chamado: " + path.getFileName());
-        else
+
+        } else {
             System.out.println("Eh um Diretorio!");
+        }
     }
 
     /**
@@ -72,11 +76,13 @@ public class UsoFiles {
      */
     public Path copiarDiretorioOuArquivo(Path sourcePath, Path targetPath) throws IOException {
         criaDiretorioOuArquivo(targetPath);
+
         // Diretórios podem ser copiados, mas os arquivos dentro dela não são.
         Path path = Files.copy(sourcePath, targetPath,
                 StandardCopyOption.REPLACE_EXISTING, LinkOption.NOFOLLOW_LINKS);
 
         System.out.format("Copiado com sucesso!%n");
+
         return path;
     }
 
@@ -90,9 +96,12 @@ public class UsoFiles {
      */
     public Path moverDiretorioOuArquivo(Path sourcePath, Path targetPath) throws IOException {
         criaDiretorioOuArquivo(targetPath);
+
         Path path = Files.move(sourcePath, Paths.get(targetPath.toString() + "/" + sourcePath.getFileName().toString()),
                 StandardCopyOption.REPLACE_EXISTING);
+
         System.out.format("Movido com sucesso!%n");
+
         return path;
     }
 
@@ -107,7 +116,9 @@ public class UsoFiles {
     public boolean excluirDiretorioOuArquivo(Path path) throws IOException {
         // Files.delete(targetPath); // throws NoSuchFileException
         boolean excluido = Files.deleteIfExists(path); // No throws. silencioso.
+
         System.out.format("excluído com sucesso!%n");
+
         return excluido;
     }
 
@@ -193,6 +204,7 @@ public class UsoFiles {
 
         userView.read(nomeAtributo, buf);
         buf.flip();
+
         String value = Charset.defaultCharset().decode(buf).toString();
 
         System.out.format("Valor do atributo definido pelo usuário: %s%n", value);
@@ -212,6 +224,7 @@ public class UsoFiles {
      */
     public void listarInformacoesDisco(Path sourcePath) throws IOException {
         FileStore fileStore = Files.getFileStore(sourcePath); // C:
+
         System.out.println("Armazenamento Total: " + fileStore.getTotalSpace() / 1024 / 1024 / 1024 + " GB");
 
         // Lista todas as unidades do computador. "C:", "D:"
@@ -233,13 +246,17 @@ public class UsoFiles {
     public void imprimeConteudoDeDentroArquivo(Path sourcePath) throws IOException {
         // usado para arquivos de texto.
         Charset charset = Charset.forName("US-ASCII");
+
         try (BufferedReader reader = Files.newBufferedReader(sourcePath, charset)) {
             String line = null;
             System.out.println();
+
             while ((line = reader.readLine()) != null) {
                 System.out.println("# " + line);
             }
+
             System.out.println();
+
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }

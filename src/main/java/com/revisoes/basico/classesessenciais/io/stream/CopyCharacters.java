@@ -1,10 +1,10 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
@@ -45,14 +45,18 @@ public class CopyCharacters {
             outputStream = new FileWriter(uriDestino);
 
             int c;
+
             while ((c = inputStream.read()) != -1) {
                 outputStream.write(c);
             }
+
             System.out.println("\n\nCopiado com sucesso!\n\n");
+
         } finally {
             if (inputStream != null) {
                 inputStream.close();
             }
+
             if (outputStream != null) {
                 outputStream.close();
             }

@@ -1,8 +1,8 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
+import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
@@ -32,16 +32,21 @@ public class CopyBytes {
             in = new FileInputStream(arquivoOrigem);
             out = new FileOutputStream(arquivioDestino);
             int c;
+
             System.out.println("");
+
             while ((c = in.read()) != -1) {
                 out.write(c);
                 System.out.print((char) c); // Cast int in char.
             }
+
             System.out.println("\n");
+
         } finally {
             if (in != null) {
                 in.close();
             }
+
             if (out != null) {
                 out.close();
             }

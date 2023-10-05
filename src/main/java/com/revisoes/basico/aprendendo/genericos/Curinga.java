@@ -97,6 +97,7 @@ public class Curinga {
         Curinga curinga = new Curinga();
 
         List<Number> numberList = new ArrayList<>(); // funciona para ambos
+
         List<? super Integer> integerList = new ArrayList<>();
         List<? extends Number> doubleList = Arrays.asList(1d, 4d, 6d);
 
@@ -119,7 +120,7 @@ public class Curinga {
         curinga.addNumbersInferior(integerList, 10);
         curinga.addNumbersInferior(numberList, 10);
 
-        // addNumbersLimiteInferior(doubleList); // não aceita Lista do tipo Double
+        // addNumbersInferior(doubleList); // não aceita Lista do tipo Double.
         curinga.printListIlimitado(integerList);
     }
 }

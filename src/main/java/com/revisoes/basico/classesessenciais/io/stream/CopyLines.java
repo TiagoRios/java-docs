@@ -1,13 +1,15 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
 import java.io.Writer;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+
+import java.io.IOException;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
@@ -53,15 +55,19 @@ public class CopyLines {
             outputStream = new PrintWriter(new FileWriter(uriDestino));
 
             String l;
+   
             // retorna uma linha de texto.
             while ((l = inputStream.readLine()) != null) {
                 outputStream.println(l);
             }
+   
             System.out.println("\n\nCopiado com sucesso!\n\n");
+   
         } finally {
             if (inputStream != null) {
                 inputStream.close();
             }
+   
             if (outputStream != null) {
                 outputStream.close();
             }

@@ -1,15 +1,17 @@
 package com.revisoes.basico.classesessenciais.io.file;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.FileSystems;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
 public class UsoPaths {
     public static void main(String[] args) throws IOException {
         Path pathIO = Paths.get(MyPath.IO_PATH);
+
         // Paths.get() é um atalho para o código abaixo.
         FileSystems.getDefault().getPath("meu/caminho");
 
@@ -22,14 +24,14 @@ public class UsoPaths {
         // None of these methods requires that the file corresponding
         // to the Path exists.
         Path path = Paths.get("C:\\home\\joe\\foo");
-
-        System.out.format("toString: %s%n", path.toString()); // c\home\joe\foo
-        System.out.format("getFileName: %s%n", path.getFileName()); // foo
-        System.out.format("getName(0): %s%n", path.getName(0)); // home
-        System.out.format("getNameCount: %d%n", path.getNameCount()); // 3
-        System.out.format("subpath(0,2): %s%n", path.subpath(0, 2)); // home\joe
-        System.out.format("getParent: %s%n", path.getParent()); // c\home\joe
+        
         System.out.format("getRoot: %s%n", path.getRoot()); // c:\
+        System.out.format("getName(0): %s%n", path.getName(0)); // home
+        System.out.format("subpath(0,2): %s%n", path.subpath(0, 2)); // home\joe
+        System.out.format("toString: %s%n", path.toString()); // c\home\joe\foo
+        System.out.format("getParent: %s%n", path.getParent()); // c\home\joe
+        System.out.format("getFileName: %s%n", path.getFileName()); // foo
+        System.out.format("getNameCount: %d%n", path.getNameCount()); // 3
 
         /*
          * ============================================================

@@ -1,8 +1,9 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
 import java.io.Console;
-import java.util.Arrays;
 import java.io.IOException;
+
+import java.util.Arrays;
 
 /**
  * Classe que demonstra como utilizar o System.console().
@@ -12,6 +13,7 @@ public class ConsolePassword {
     public static void main(String args[]) throws IOException {
 
         Console console = System.console(); // disponível se retornar o console.
+
         if (console == null) { // verifica se disponível.
             System.err.println("No console.");
             System.exit(1);
@@ -22,18 +24,23 @@ public class ConsolePassword {
 
         if (verify(login, oldPassword)) {
             boolean noMatch;
+
             do {
                 char[] newPassword1 = console.readPassword("Enter your new password: ");
                 char[] newPassword2 = console.readPassword("Enter new password again: ");
                 noMatch = !Arrays.equals(newPassword1, newPassword2);
+
                 if (noMatch) {
                     console.format("Passwords don't match. Try again.%n");
+
                 } else {
                     change(login, newPassword1);
                     console.format("Password for %s changed.%n", login);
                 }
+
                 Arrays.fill(newPassword1, ' ');
                 Arrays.fill(newPassword2, ' ');
+
             } while (noMatch);
         }
 

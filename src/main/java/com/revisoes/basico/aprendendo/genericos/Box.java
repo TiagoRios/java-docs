@@ -45,6 +45,7 @@ public class Box<T extends Number> {
 
         // Inferência na instanciação.
         Box<Short> shortBox = new Box<>();
+
         shortBox.set(Short.valueOf("10")); // java.lang.Short
 
         // Sem inferência.
@@ -58,8 +59,11 @@ public class Box<T extends Number> {
 
         /* Chamando construtor genèrico */
         Box<Byte> byteBox = new Box<>(Calendar.getInstance().getTime());
+
         System.out.println(byteBox.getToStringDoObjeto()); // Data e hora em String.
+
         byteBox.set(Byte.valueOf("-128")); // Faixa entre -128 e 127
+
         byteBox.inspect(3D); // Double
 
     }

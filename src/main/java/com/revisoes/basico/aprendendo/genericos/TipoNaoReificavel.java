@@ -75,7 +75,7 @@ public class TipoNaoReificavel {
                 String s = listaString[0].get(0); // ClassCastException lançada aqui
                 System.out.println("index 0 = "+ s);
             } catch (Exception e) {
-                System.out.println("\n\nErro capturado: " + e.getMessage() + "\n\n");
+                System.out.println("\n\nErro capturado: FAILED_METHOD - " + e.getMessage() + "\n\n");
             }
         }
 
@@ -85,7 +85,7 @@ public class TipoNaoReificavel {
                 String s = listaString[0].get(0);
                 System.out.println("index 0 = "+ s);
             } catch (Exception e) {
-                System.out.println("\n\nErro capturado: " + e.getMessage() + "\n\n");
+                System.out.println("\n\nErro capturado: FAILED_METHOD_RESSOLVIDO - " + e.getMessage() + "\n\n");
             }
         }
     }

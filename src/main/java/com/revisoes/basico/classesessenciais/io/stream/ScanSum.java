@@ -1,10 +1,11 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
 
@@ -21,6 +22,7 @@ public class ScanSum {
             while (scanner.hasNext()) {
                 if (scanner.hasNextDouble()) {
                     sum += scanner.nextDouble();
+                
                 } else {
                     scanner.next();
                 }

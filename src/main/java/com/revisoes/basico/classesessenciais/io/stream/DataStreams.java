@@ -1,11 +1,13 @@
 package com.revisoes.basico.classesessenciais.io.stream;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.BufferedInputStream;
+
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
 import java.io.BufferedOutputStream;
+
 import java.io.IOException;
 
 import com.revisoes.basico.classesessenciais.io.MyPath;
@@ -42,6 +44,7 @@ public class DataStreams {
 
     public static void main(String[] args) throws IOException {
         DataOutputStream out = null;
+
         try {
             // DataOutputStream foi construído como um wrapper para um fluxo de bytes.
             out = new DataOutputStream(
@@ -53,19 +56,24 @@ public class DataStreams {
                 out.writeInt(units[i]);
                 out.writeUTF(descs[i]);
             }
+
         } finally {
             out.close();
         }
+
         DataInputStream in = null;
         double total = 0.0;
+
         try {
             // DataInputStream foi construído como um wrapper para um fluxo de bytes.
             in = new DataInputStream(
                     new BufferedInputStream(
                             new FileInputStream(dataFile)));
+
             double price;
             int unity;
             String description;
+   
             try {
                 while (true) {
                     price = in.readDouble();
@@ -75,9 +83,12 @@ public class DataStreams {
                             unity, description, price);
                     total += unity * price;
                 }
+   
             } catch (EOFException e) {
             }
+   
             System.out.format("For a TOTAL of: $%.2f%n", total);
+   
         } finally {
             in.close();
         }

@@ -138,9 +138,10 @@ public class ExclusaoDeTipo {
     }
 
     public static void main(String... args) {
-        
+
         try {
             MyNode myNode = new MyNode(12345); // it's a integer, not a String.
+       
             // parametrizei para o compilador não gerar avisos.
             Node<Integer> node = myNode; // Comente-o para gerar o erro.
             // Node node = myNode; // A raw type - compiler throws an unchecked warning
@@ -150,6 +151,7 @@ public class ExclusaoDeTipo {
             // thrown.
 
             logger.info("Data = " + myNode.data.toString());
+
         } catch (Exception e) {
             logger.severe("\n\n" + e.getMessage() + "\n\n");
         }

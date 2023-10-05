@@ -21,6 +21,7 @@ public class BoxDemo {
      */
     public static <E extends Number> void addBox(E e, List<Box<E>> boxes) {
         Box<E> box = new Box<>(); // Inferência de tipo na instanciação.
+
         box.set(e);
         boxes.add(box);
     }
@@ -29,15 +30,18 @@ public class BoxDemo {
      * Método que imprime no console todos os itens da lista com uma formatação
      * personalizada.
      * 
-     * @param <E> Tipo do elemento. 
+     * @param <E>   Tipo do elemento.
      * @param boxes A lista que será percorrida.
      */
     public static <E extends Number> void outputBoxes(List<Box<E>> boxes) {
         int counter = 0;
+
         for (Box<E> box : boxes) {
             E boxContents = box.get();
+
             System.out.println("Box #" + counter + " contains [" +
                     boxContents.toString() + "]");
+
             counter++;
         }
     }

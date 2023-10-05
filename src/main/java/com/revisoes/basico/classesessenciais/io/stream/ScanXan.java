@@ -33,6 +33,7 @@ public class ScanXan {
             if (scanner != null) {
                 scanner.close();
             }
+
             if (printWriter != null) {
                 printWriter.close();
             }
