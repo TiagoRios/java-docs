@@ -33,13 +33,13 @@ public class TipoNaoReificavel {
     class ArrayBuilder {
 
         /**
-         * If you declare a varargs method that has parameters of a parameterized type,
-         * and you ensure that the body of the method does not throw a
-         * {@code ClassCastException} or other similar exception due to improper
-         * handling of the
-         * varargs formal parameter, you can prevent the warning that the compiler
-         * generates for these kinds of varargs methods by adding the following
-         * annotation to static and non-constructor method declarations:
+         * <p>If you declare a varargs method that has parameters of a parameterized type,
+         * and you <strong>ensure</strong> that the body of the method <strong>does
+         * not</strong> throw a {@code ClassCastException} or other similar exception
+         * due to improper handling of the varargs formal parameter, you can prevent the
+         * warning that the compiler generates for these kinds of varargs methods by
+         * adding the following annotation to static and non-constructor method
+         * declarations:</p>
          * 
          * {@link SafeVarargs @SafeVarargs}
          * 
@@ -66,6 +66,7 @@ public class TipoNaoReificavel {
          */
         @SafeVarargs // Não é realmente segura. o corpo do método lança exceção.
         public static void failedMethod(List<String>... listaString) { // potencial poluição de heap via varArgs.
+
             try {
                 Object[] array = listaString; // Válido
                 List<Integer> listaTemporaria = Arrays.asList(42);
@@ -73,7 +74,8 @@ public class TipoNaoReificavel {
                 // inserindo a lista temporária no index 0 do array.
                 array[0] = listaTemporaria; // Semantically invalid, but compiles without warnings
                 String s = listaString[0].get(0); // ClassCastException lançada aqui
-                System.out.println("index 0 = "+ s);
+                System.out.println("index 0 = " + s);
+
             } catch (Exception e) {
                 System.out.println("\n\nErro capturado: FAILED_METHOD - " + e.getMessage() + "\n\n");
             }
@@ -83,7 +85,8 @@ public class TipoNaoReificavel {
         public static void failedMethodResolvido(List<String>... listaString) { // potencial poluição de heap
             try {
                 String s = listaString[0].get(0);
-                System.out.println("index 0 = "+ s);
+                System.out.println("index 0 = " + s);
+
             } catch (Exception e) {
                 System.out.println("\n\nErro capturado: FAILED_METHOD_RESSOLVIDO - " + e.getMessage() + "\n\n");
             }

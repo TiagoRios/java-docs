@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 /**
  * Classe genérica que demonstra a utilização de parâmetros de limites únicos e
- * limites multiplos, construtor genérica, métodos genéricos, inferência na
+ * limites multiplos, construtor genérico, métodos genéricos, inferência na
  * instanciação e na invocação de métodos.
  * 
  * <p>{@code NomeClasse<T [ extends outraClasse e/ou interface's']> }

@@ -15,8 +15,7 @@ package com.revisoes.basico.aprendendo.genericos;
  * <li>Não é possível criar matrizes de tipos parametrizados
  * <li>Não é possível criar, capturar ou lançar objetos de tipos parametrizados
  * <li>Não é possível sobrecarregar um método em que os tipos de parâmetros
- * formais
- * de cada sobrecarga são apagados para o mesmo tipo bruto
+ * formais de cada sobrecarga são apagados para o mesmo tipo bruto
  * </ol>
  */
 public interface RestricoesGenerics {

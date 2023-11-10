@@ -8,17 +8,18 @@ import java.util.Vector;
  * {@link https://docs.oracle.com/javase/tutorial/essential/exceptions/examples/ListOfNumbers2.java}
  */
 public class ListOfNumbers {
-    private Vector<Integer> victor;
+    private Vector<Integer> vector;
     private static final int SIZE = 10;
 
     public ListOfNumbers() {
-        victor = new Vector<Integer>(SIZE);
+        vector = new Vector<Integer>(SIZE);
 
         for (int i = 0; i < SIZE; i++) {
-            victor.addElement(Integer.valueOf(i));
+            vector.addElement(Integer.valueOf(i));
         }
 
-        this.readList("infile.txt"); // Crie com numeros. 1 por linha.
+        // Crie o arquivo na raiz do projeto e coloque apenas números por linha
+        this.readList("infile.txt");
         this.writeList();
     }
 
@@ -30,11 +31,12 @@ public class ListOfNumbers {
             while ((line = raf.readLine()) != null) {
                 Integer i = Integer.valueOf(Integer.parseInt(line));
                 System.out.println(i);
-                victor.addElement(i);
+                vector.addElement(i);
             }
 
         } catch (FileNotFoundException fnf) {
             System.err.println("File: " + fileName + " not found.");
+
         } catch (IOException io) {
             System.err.println(io.toString());
         }
@@ -46,13 +48,14 @@ public class ListOfNumbers {
         try {
             out = new PrintWriter(new FileWriter("outfile.txt"));
 
-            for (int i = 0; i < victor.size(); i++) {
-                out.println("Value at dddd: " + i + " = " + victor.elementAt(i));
+            for (int i = 0; i < vector.size(); i++) {
+                out.println("Value at line: " + (i + 1) + " = " + vector.elementAt(i));
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Caught ArrayIndexOutOfBoundsException: " +
                     e.getMessage());
+
         } catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
 
@@ -60,6 +63,7 @@ public class ListOfNumbers {
             if (out != null) {
                 System.out.println("Closing PrintWriter");
                 out.close();
+
             } else {
                 System.out.println("PrintWriter not open");
             }
