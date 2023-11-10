@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Este exemplo demonstra a utilização de classe interna.
  * 
  * Uma classe interna é definida dentro de outra classe, diferente
- * de classes locais. que são definidas dentro de um método
+ * de classes locais. que são definidas dentro de um método.
  * 
  * A classe interna EvenIterator implementa a interface Iterator<T>
  * 

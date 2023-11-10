@@ -36,10 +36,6 @@ public class Person {
 		return birthday.until(IsoChronology.INSTANCE.dateNow()).getYears();
 	}
 
-	public void printPerson() {
-		logger.log(Level.INFO, "{0}", name + ", " + this.getAge());
-	}
-
 	public Sex getGender() {
 		return gender;
 	}
@@ -56,11 +52,27 @@ public class Person {
 		return birthday;
 	}
 
-	public static int compareByAge(Person a, Person b) {
-		return a.birthday.compareTo(b.birthday);
+	public void printPerson() {
+		logger.log(Level.INFO, "{0}", name + ", " + this.getAge());
 	}
 
-	// Retorna uma lista de pessoas
+	/**
+	 * Compara dois objetos pela idade de person.
+	 * 
+	 * @param firstPerson  primeiro objeto
+	 * @param secondPerson segundo objeto
+	 * 
+	 * @return inteiro com a comparação.
+	 */
+	public static int compareByAge(Person firstPerson, Person secondPerson) {
+		return firstPerson.birthday.compareTo(secondPerson.birthday);
+	}
+
+	/**
+	 * Cria uma lista de pessoas já preenchidas com valores simulados.
+	 * 
+	 * @return lista de Person
+	 */
 	public static List<Person> createRoster() {
 
 		List<Person> roster = new ArrayList<>();

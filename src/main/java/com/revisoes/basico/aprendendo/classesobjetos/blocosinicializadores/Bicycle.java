@@ -1,7 +1,7 @@
 package com.revisoes.basico.aprendendo.classesobjetos.blocosinicializadores;
 
 /**
- * Classe obtida do site da documentação oracle. 
+ * Classe obtida do site da documentação oracle.
  */
 public class Bicycle {
 	private int cadence;
@@ -22,16 +22,16 @@ public class Bicycle {
 		id = ++numberOfBicycles;
 	}
 
-	// Lint dá problemas. Não pode ser utilizado para inicializar variáveis.
-	// Essa construção é raramente usada. inicializar das formas convencionais.
-	// {.
-		// Esse bloco � compartilhado entre todos os construtores.
-	//}.
-
-	// Inicializando variaveis de classe
+	/*
+	 * Lint dá problemas. Não pode ser utilizado para inicializar variáveis.
+	 * Essa construção é raramente usada. inicializar das formas convencionais.
+	 * Esse bloco é compartilhado entre todos os construtores.
+	 * 
+	 * Inicializando variaveis de classe
+	 */
 	static {
-		// Usado para inicialiozar codigos mais complexos com algum tipo de valida��o ou
-		// trotamento de erros
+		// Usado para inicialiozar codigos mais complexos com algum tipo de validação ou
+		// tratamento de erros.
 	}
 
 	// Inicializa variaveis de classe.

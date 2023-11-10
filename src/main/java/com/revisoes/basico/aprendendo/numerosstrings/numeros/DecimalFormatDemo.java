@@ -6,7 +6,9 @@ public class DecimalFormatDemo {
 
    static public void customFormat(String pattern, double value ) {
       DecimalFormat myFormatter = new DecimalFormat(pattern);
+      
       String output = myFormatter.format(value);
+      
       System.out.println(value + "  " + pattern + "  " + output);
    }
 
