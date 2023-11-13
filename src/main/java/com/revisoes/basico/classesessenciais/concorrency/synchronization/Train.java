@@ -1,4 +1,4 @@
-package com.revisoes.basico.classesessenciais.concorrency.sincronizacao;
+package com.revisoes.basico.classesessenciais.concorrency.synchronization;
 
 /**
  * Exemplo do site GeeksforGeeks.
