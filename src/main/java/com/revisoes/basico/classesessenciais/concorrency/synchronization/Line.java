@@ -15,7 +15,7 @@ class Line {
      * If multiple threads(trains) trying to access this synchronized method on the
      * same Object but only one thread will be able to execute it at a time.
      */
-    public void getLine() {
+    synchronized public void getLine() { // execute com/sem synchronized.
 
         for (int i = 0; i < 5; i++) {
             System.out.println(i);

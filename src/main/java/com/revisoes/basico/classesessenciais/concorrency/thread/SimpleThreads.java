@@ -81,6 +81,7 @@ public class SimpleThreads {
 
         // cria a Thread passa o objeto runnable ao construtor.
         Thread minhaThread = new Thread(new MessageLoop());
+        // Thread minhaThread = new Thread( ()-> {conteúdo método run "MessageLoop"} );
         minhaThread.start();
 
         threadMessage("Waiting for MessageLoop thread to finish");
