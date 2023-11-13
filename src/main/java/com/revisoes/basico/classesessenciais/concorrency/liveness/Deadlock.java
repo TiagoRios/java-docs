@@ -14,7 +14,7 @@ package com.revisoes.basico.classesessenciais.concorrency.liveness;
 public class Deadlock {
 
     /**
-     * Classe represente pessoas que podem se cumprimentar se curvando.
+     * Classe que representa um(a) amigo(a).
      */
     static class Friend {
         private final String name;
@@ -28,7 +28,7 @@ public class Deadlock {
         }
 
         /**
-         * Cumprimentar alguem curvando-se.
+         * Cumprimentar curvando-se.
          * 
          * @param bower quem vai ser cumprimentado.
          */
@@ -38,7 +38,7 @@ public class Deadlock {
         }
 
         /**
-         * Cumprimentar alguem de volta curvando-se.
+         * Cumprimentar de volta curvando-se.
          * 
          * @param bower quem será cumprimentado de volta.
          */
@@ -52,21 +52,27 @@ public class Deadlock {
         final Friend alphonse = new Friend("Alphonse");
         final Friend gaston = new Friend("Gaston");
 
-        new Thread(new Runnable() {
-            public void run() {
-                alphonse.bow(gaston);
-            }
-        }).start();
+        // Utilizando lambda menos verboso.
+        new Thread(() -> gaston.bow(alphonse)).start();
+        new Thread(() -> alphonse.bow(gaston)).start();
 
-        new Thread(new Runnable() {
-            public void run() {
-                gaston.bow(alphonse);
-            }
-        }).start();
+        // Classe anônima Runnable.
+
+        // new Thread(new Runnable() {
+        // public void run() {
+        // alphonse.bow(gaston);
+        // }
+        // }).start();
+
+        // new Thread(new Runnable() {
+        // public void run() {
+        // gaston.bow(alphonse);
+        // }
+        // }).start();
     }
 }
 
-/**
+/*
  * When Deadlock runs, it's extremely likely that both threads will block when
  * they attempt to invoke bowBack. Neither block will ever end, because each
  * thread is waiting for the other to exit bow.
