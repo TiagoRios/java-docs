@@ -33,7 +33,7 @@ public class Roster {
 	 * @return Lista de persons
 	 */
 	public static List<Person> printPersonsOlderThan(List<Person> roster, int age) {
-		
+
 		List<Person> lista = new ArrayList<>();
 
 		for (Person p : roster) {
@@ -42,7 +42,7 @@ public class Roster {
 				p.printPerson();
 			}
 		}
-		
+
 		return lista;
 	}
 
@@ -57,7 +57,7 @@ public class Roster {
 	 * @return Lista de persons.
 	 */
 	public static List<Person> printPersonsWithinAgeRange(List<Person> roster, int low, int high) {
-		
+
 		List<Person> lista = new ArrayList<>();
 
 		for (Person p : roster) {
@@ -163,7 +163,7 @@ public class Roster {
 				lista.add(p);
 			}
 		}
-		
+
 		return lista;
 	}
 
@@ -283,7 +283,8 @@ public class Roster {
 		logger.info(SEPARADOR);
 		logger.info(() -> ELEGIVEIS_SERVICO_MILITAR + " (with Predicate and Consumer parameters):");
 
-		processPersons(roster, p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
+		processPersons(roster,
+				p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
 				Person::printPerson);
 
 		logger.info(SEPARADOR);
@@ -307,8 +308,10 @@ public class Roster {
 		logger.info(SEPARADOR);
 		logger.info(() -> ELEGIVEIS_SERVICO_MILITAR + " (generic version):");
 
-		processElements(roster, p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
-				Person::getEmailAddress, logger::info);
+		processElements(roster,
+				p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25,
+				Person::getEmailAddress,
+				logger::info);
 		// Outra forma p -> p.getEmailAddress(), name.
 
 		logger.info(SEPARADOR);
@@ -320,7 +323,9 @@ public class Roster {
 		logger.info(SEPARADOR);
 		logger.info("Persons who are eligible for Selective Service " + "(with bulk data operations):");
 
-		roster.stream().filter(p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25)
-				.map(Person::getEmailAddress).forEach(logger::info);
+		roster.stream()
+				.filter(p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25)
+				.map(Person::getEmailAddress)
+				.forEach(logger::info);
 	}
 }
