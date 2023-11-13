@@ -15,8 +15,6 @@ package com.revisoes.basico.classesessenciais.concorrency.sincronizacao;
  * <p>
  * <strong>Obs:</strong> Construtores não podem ser sincronizados.
  * </p>
- * <p>
- * </p>
  */
 public class SynchronizedCounter {
     private int count = 0;
