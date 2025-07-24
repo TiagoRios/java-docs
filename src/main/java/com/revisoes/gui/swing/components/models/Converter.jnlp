@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- JNLP File for Converter -->
+<jnlp
+  spec="1.0+"
+  codebase="https://docs.oracle.com/javase/tutorialJWS/samples/uiswing/ConverterProject"
+  href="Converter.jnlp">
+  <information>
+    <title>Converter</title>
+    <vendor>The Java(tm) Tutorial</vendor>
+    <homepage href="https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html#Converter"/>
+    <description>Converter</description>
+    <description kind="short">Multiple components display data from a single model.</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.7+"/>
+    <jar href="Converter.jar"/>
+  </resources>
+  <application-desc main-class="components.Converter"/>
+</jnlp> 
